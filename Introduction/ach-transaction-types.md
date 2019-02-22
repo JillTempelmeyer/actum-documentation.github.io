@@ -41,18 +41,24 @@ Remember, transactions can be submitted to Actum through one of three methods:
 * Through a direct API integration. 
 
  
-SUBMISSION DEADLINES
-THROUGH THE API:
-Most transactions must be submitted to Actum by 4:00 PM (Central) in order to be included in that day’s batch file for processing.  Transactions that are submitted after that time will be processed the following day.
-Originators that need a later submission deadline (e.g., West Coast and/or online businesses) can sign up for Actum’s Late-Night Processing service, which pushes back the submission deadline from 4:00 PM to 9:00 PM (Central).
-Both submission deadlines allow for transactions to take effect (i.e., be reflected in the Receiver’s bank account) the following banking day, usually at 9:00 AM (RDFI’s local time).
+## Submission Deadlines
+
+### Through the API
+
+Most transactions must be submitted to Actum by 4:00 PM (Central Time) in order to be included in that day’s batch file for processing.  Transactions that are submitted after that time will be processed the following day. Originators that need a later submission deadline (e.g., West Coast and/or online businesses) can sign up for Actum’s Late-Night Processing service, which pushes back the submission deadline from 4:00 PM to 9:00 PM (Central). Both submission deadlines allow for transactions to take effect (i.e., be reflected in the Receiver’s bank account) the following banking day, usually at 9:00 AM (RDFI’s local time).
+
 It’s important to note that Actum accepts transactions around the clock and will not decline a transaction for being late; it will simply be included in the next day’s batch.
-There are two transaction types that have an earlier submission deadline: Same-Day Debits and Same-Day Credits.  These transactions need to be submitted to Actum by 11:00 AM (Central) in order to take effect by 4:00 PM (Central) later that day.  
-THROUGH THE SFTP:
-Transaction files submitted to us through the SFTP can take a little longer to process before being sent to the ODFI, so the submission deadlines are 30 minutes before the above times:
-•	Regular transactions must be submitted by 3:30 PM (Central)
-•	Late-Night transactions must be submitted by 8:30PM (Central)
-•	Same-Day transactions must be submitted by 10:30AM (Central)
+
+There are two transaction types that have an earlier submission deadline: **Same-Day Debits** and **Same-Day Credits**.  These transactions need to be submitted to Actum by 11:00 AM (Central) in order to take effect by 4:00 PM (Central) later that day.  
+
+### Through the SFTP
+
+Transaction files submitted to us through the SFTP can take longer to process prior to being sent to the ODFI. Therefore, the submission deadlines are 30 minutes prior to the API cutoff times, as shown in the following details:
+
+*	Regular transactions must be submitted by 3:30 PM (Central)
+*	Late-Night transactions must be submitted by 8:30PM (Central)
+*	Same-Day transactions must be submitted by 10:30AM (Central)
+
 (1) DEBITS
 ACH Debits are used to pull money from the Receiver’s account.  They are the most common transaction type.
 Each Debit transaction must include the following data:
