@@ -1,7 +1,8 @@
 # Understanding the ACH Payment Flow
 
+Before building out a software or web-based solution to facilitate Automated Clearing House (ACH) payments, you'll want to make sure that you understand how the ACH payment flow works.  The rules and processes around ACH will impact the features you build and how you communicate the status of a transaction. 
 
-Before building out a software or web-based solution to facilitate Automated Clearing House (ACH) payments, it is first important to understand how the ACH payment flow works.  The rules and processes around ACH will impact the features you build and how you communicate the status of a transaction. 
+This document will briefly introduce you to the ACH payment flow and how it relates to Actum's ACH processing procedures and policies.
 
 ## Table of Contents
 
@@ -14,7 +15,7 @@ Before building out a software or web-based solution to facilitate Automated Cle
 * [Using Actum to Facilitate ACH Payments](#using-actum-to-facilitate-ach-payments)
 * [Actum's API](#actums-api)
 
-### Introduction
+## Introduction
 
 Before building out a software or web-based solution to facilitate Automated Clearing House (ACH) payments, it is first important to understand how the ACH payment flow works.  The rules and processes around ACH will impact the features you build and how you communicate the status of a transaction. 
 
@@ -23,7 +24,7 @@ The ACH Network is managed by **NACHA** and is made up of banks and credit union
 
 **Note:** _NACHA is the governing body that establishes and enforces the processes and rules for ACH transactions._
 
-### How ACH Works
+## How ACH Works
 
 In the world of ACH Processing, there’s **Originating** and there’s **Receiving**.  
 
@@ -37,7 +38,7 @@ With an intermediary involved, the Originator will submit a transaction to Actum
 
 As an example, let’s say that the customer’s bank account is at Wells Fargo.  In this case, Wells Fargo would be the Receiving Depository Financial Institution (RDFI).  If this transaction were an ACH debit for $100, Wells Fargo would see its ledger at the Federal Reserve decrease by $100, automatically, while the ODFI would see an increase by $100 (if this were an ACH credit, Wells Fargo would see its ledger increase, while the ODFI would see a decrease).  This increase or decrease should be further reflected in the individual accounts at the different banks.   
 
-### ACH Returns
+## ACH Returns
 
 In most cases, an RDFI has two business days to object to a transaction and take back the funds from the ODFI.  This objection comes in the form of an ACH Return Code.  
 For example, if the customer’s account had insufficient funds or simply didn’t exist, Wells Fargo would send the ACH Return Codes `R01` or `R03`, respectively, to Actum’s ODFI and the transaction would be reversed, leading to a failed transaction.  There are many reasons why a transaction might be returned, and sometimes customers have up to 60 days to dispute a charge, which could reverse a transaction that had already settled.
@@ -48,7 +49,7 @@ Therefore, your software (or web) solution should account for this requirement.
 
 Refer to this list of [85 ACH Return Codes](Placeholder for Document), so that your software can translate them in a way that allows the user to quickly take action, such as contacting the customer).
 
-### Batch Processing
+## Batch Processing
 
 As you can see, ACH doesn’t happen in real-time. While Actum helps streamline ACH processing as much as possible, it is not a fully-automated process.
 
@@ -83,7 +84,7 @@ These times are important to note, because Originators want to know as soon as t
 * Their own settlement date calculations, and
 * Parsing through their clients’ transaction history files (provided through an SFTP on a daily or twice daily basis) to match return line items with their respective transactions using their Reference Key IDs.  
 
-### Late Returns
+## Late Returns
 
 What happens when an ACH Return Code comes in after the settlement period ends?  
 
@@ -91,7 +92,7 @@ First, Actum will advocate on your behalf to dishonor the return, if applicable.
 
 As an example, if you had 10 transactions of $20 each, scheduled to settle today, and there were no returns by 2:00PM, the full $200 would settle and be paid out to the Originator.  If a legitimate return for one of those transactions is received later that day or tomorrow, and you have another $200 scheduled to settle tomorrow, only $180 would end up settling tomorrow ($200 settlement LESS the $20 late return).
 
-### Using Actum to Facilitate ACH Payments
+## Using Actum to Facilitate ACH Payments
 
 There are three main ways to interact with Actum:
 
@@ -103,7 +104,7 @@ Many of Actum's software partners and web merchants use a combination of the las
 
 Some merchants use payment management software that is not directly integrated with Actum. Those merchants will often use the SFTP method to upload transaction files, or the Virtual Terminal to manually enter transactions and access their reports. 
 
-### Actum's API
+## Actum's API
 
 The following actions are available through our APIs:
 
