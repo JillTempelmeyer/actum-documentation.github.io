@@ -5,9 +5,9 @@ Now that you understand the ACH payment flow, this document will introduce you t
 ## Table of Contents
 
 * Introduction to Transaction Types
- * Debiting Transaction Types
- * Debiting and Crediting Transaction Types
- * Crediting Transaction Types
+   * Debiting Transaction Types
+   * Debiting and Crediting Transaction Types
+   * Crediting Transaction Types
 * Submission Deadlines
 
 ## Introduction to Transaction Types
@@ -75,7 +75,7 @@ Exposure limits are different for every Originator, and it’s the Originator’
 
 **Note:**  To help your clients avoid such delays, Actum recommends that you help them keep track of their exposure limits, which are available through our Exposure Limits API.  Here, you can set up alerts for when a client is getting dangerously close to an exposure limit, so that he/she can proactively contact Actum to request a limit increase.  
 
-There are 5 exposure limits:
+There are five exposure limits:
 
 *	Maximum dollar amount per transaction
 *	Maximum dollar amount per day
@@ -89,25 +89,34 @@ Similar to regular ACH debits, **Same-Day Debits** have the same requirements, a
 
 The data requirements are spelled out in greater detail in our [Integration Guide](Link) and [File Import Specifications](Link).
 
-Developer’s Note:  Because Actum does not decline late transactions, and instead includes them in the next batch file, it may be helpful for your software solution to include an automated post-submission message letting your client know the submission was late and will therefore take effect on the following banking day instead of later that day.
-(3) REINITIATED DEBITS
-There are two kinds of Reinitiated Debits: (a) Stopped Payment Retries and (b) NSF Retries.
-Stopped Payment Retries are used when a Debit transaction failed due to the following ACH Return Code:
-•	R08 for Payment Stopped (the Receiver has placed a stop payment order on this debit Entry)
-NSF Retries are used to reinitiate previously failed Debit transactions resulting from one of two qualifying ACH Return Codes: 
-•	R01 for Insufficient Funds (the Receiver’s available balance is not sufficient to cover the dollar value of the debit Entry), and
-•	R09 for Uncollected Funds (the Receiver has a sufficient ledger balance to satisfy the dollar value of the transaction, but the available balance is below the dollar value of the debit Entry).
-If a Debit transaction fails due to ACH Return Code R08, the Originator must receive separate authorization from the Receiver to reinitiate the Debit.  
-For R01 and R09, while a separate authorization is not required, it is considered a best practice for the Originator to follow up with their customer (the Receiver) to arrange a future date for the NSF Retry.
-Important: the Originator is limited to 2 Reinitiated Debits and must submit them within 180 days of the initial Debit.  
-NACHA requires that these transactions be identified as Reinitiated Debits rather than submitted as new transactions.  Any fees that are assessed by the Originator must also be clearly identified or explained at the time of the initial authorization.  We recommend using the following, or substantially similar, language:
-“If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee of [$ ];” or 
-“If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee. The fee will be determined [by/as follows]: [ ].” 
-What does this mean for you, the developer?  
-Developer’s Note:  We recommend that you create an action (allowing your users to reinitiate a previous failed transaction) that turns on automatically, upon the receipt of a qualifying ACH Return Code.  The action should include fields where your users can enter a return fee and a future date for the Reinitiated Debit.  Your system should also disable the action based on the number of attempts (2 maximum) and the time that has elapsed (180 days).  
-Our developer support team will offer guidance on how best to program this action in your software solution.
-(4) PRE-NOTES
-Pre-Notes are zero-dollar transactions that are used to validate the Receiver’s bank account number.  They precede the authorized Debit or Credit transaction by three banking days.
+**Note:**  Because Actum does not decline late transactions, and instead includes them in the next batch file, it may be helpful for your software solution to include an automated post-submission message letting your client know the submission was late and will therefore take effect on the following banking day instead of later that day.
+
+## REINITIATED DEBITS
+
+There are two kinds of **Reinitiated Debits**: 
+
+* **Stopped Payment Retries**, which are used when a Debit transaction failed due to the following ACH Return Code:
+  *	`R08` for Payment Stopped (the Receiver has placed a stop payment order on this debit Entry)
+* **NSF Retries**, which are used to reinitiate previously failed Debit transactions resulting from one of two qualifying ACH Return Codes: 
+  *	`R01` for Insufficient Funds (the Receiver’s available balance is not sufficient to cover the dollar value of the debit Entry), and
+  * `R09` for Uncollected Funds (the Receiver has a sufficient ledger balance to satisfy the dollar value of the transaction, but the available balance is below the dollar value of the debit entry).
+  
+If a Debit transaction fails due to ACH Return Code `R08`, the Originator must receive separate authorization from the Receiver to reinitiate the Debit.  
+
+For `R01` and `R09`, while a separate authorization is not required, it is considered a best practice for the Originator to follow up with their customer (the Receiver) to arrange a future date for the NSF Retry.
+
+**Note:** An Originator is limited to 2 Reinitiated Debits and must submit them within 180 days of the initial Debit.  
+NACHA requires that these transactions be identified as Reinitiated Debits rather than submitted as new transactions.  Any fees that are assessed by the Originator must also be clearly identified or explained at the time of the initial authorization.  Actum recommend using the following, or substantially similar, language:
+
+* “If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee of [$ ];” or 
+* “If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee. The fee will be determined [by/as follows]: [ ].” 
+
+Actum recommends that you create an action (allowing your users to reinitiate a previous failed transaction) that turns on automatically, upon the receipt of a qualifying ACH Return Code.  The action should include fields where your users can enter a return fee and a future date for the Reinitiated Debit.  Your system should also disable the action based on the number of attempts (two maximum) and the time that has elapsed (180 days).  Actum's developer support team will offer guidance on how best to program this action in your software solution.
+
+## Pre-Notes
+
+**Pre-Notes** are zero-dollar transactions that are used to validate the Receiver’s bank account number.  They precede the authorized Debit or Credit transaction by three banking days.
+
 An RDFI that receives a Pre-Note has 3 days to return it or to provide the ODFI with a Notification of Change or NOC. 
 NOCs are a type of return that the RDFI sends when they accept a transaction despite there being minor errors in the data.  For example, if the RDFI was able to locate the Receiver’s account based on the submitted information, but the account number was slightly off, they would send an NOC (with the correct account number) to the ODFI. 
 As part of our service, Actum will automatically apply those corrections in the subsequent debit transaction and in our database.
