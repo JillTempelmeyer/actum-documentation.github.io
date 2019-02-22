@@ -108,8 +108,8 @@ For `R01` and `R09`, while a separate authorization is not required, it is consi
 **Note:** An Originator is limited to 2 Reinitiated Debits and must submit them within 180 days of the initial Debit.  
 NACHA requires that these transactions be identified as Reinitiated Debits rather than submitted as new transactions.  Any fees that are assessed by the Originator must also be clearly identified or explained at the time of the initial authorization.  Actum recommend using the following, or substantially similar, language:
 
-* “If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee of [$ ];” or 
-* “If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee. The fee will be determined [by/as follows]: [ ].” 
+* _“If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee of [$ ];”_ or 
+* _“If your payment is returned unpaid, you authorize us to make a one-time electronic fund transfer from your account to collect a fee. The fee will be determined [by/as follows]: [ ].”_ 
 
 Actum recommends that you create an action (allowing your users to reinitiate a previous failed transaction) that turns on automatically, upon the receipt of a qualifying ACH Return Code.  The action should include fields where your users can enter a return fee and a future date for the Reinitiated Debit.  Your system should also disable the action based on the number of attempts (two maximum) and the time that has elapsed (180 days).  Actum's developer support team will offer guidance on how best to program this action in your software solution.
 
@@ -117,16 +117,23 @@ Actum recommends that you create an action (allowing your users to reinitiate a 
 
 **Pre-Notes** are zero-dollar transactions that are used to validate the Receiver’s bank account number.  They precede the authorized Debit or Credit transaction by three banking days.
 
-An RDFI that receives a Pre-Note has 3 days to return it or to provide the ODFI with a Notification of Change or NOC. 
-NOCs are a type of return that the RDFI sends when they accept a transaction despite there being minor errors in the data.  For example, if the RDFI was able to locate the Receiver’s account based on the submitted information, but the account number was slightly off, they would send an NOC (with the correct account number) to the ODFI. 
-As part of our service, Actum will automatically apply those corrections in the subsequent debit transaction and in our database.
-If the Pre-Note does not get returned by the end of Day 3, the account will have been validated, and the accompanying Debit or Credit Entry will go out automatically.  (And if the Pre-Note does get returned, then the Entry will not be processed and the Originator should follow up with the Receiver to get the correct information.)
-While using Pre-Notes does delay fund settlement by three additional days, it’s considered a best practice.  
-In fact, starting September of 2019, NACHA will require Originators to validate all newly authorized bank account numbers for WEB transactions using commercially reasonable methods.  And while there are some cool API-driven online bank account verification services to accomplish this (e.g., Plaid, Yodlee, Quovo, MicroBilt, etc.), Pre-Notes are the only full-coverage option available. 
-Developer’s Note:  Because a Pre-Note transaction must also include an authorized Debit or Credit, they are not submitted as two separate Entries, but rather, as one normal Entry with the authorized amount (subject to the same rules and exposure limits) and a special designation to be Pre-Noted.
-The data requirements are spelled out in greater detail in our Integration Guide and File Import Specifications.
-(5) CREDITS
-ACH Credits are used to deposit money into the Receiver’s account.  
+An RDFI that receives a Pre-Note has three days to return it or to provide the ODFI with a **Notification of Change (NOC)**. 
+NOCs are a type of return that the RDFI sends when they accept a transaction despite there being minor errors in the data. 
+
+For example, if the RDFI was able to locate the Receiver’s account based on the submitted information, but the account number was slightly off, they would send an NOC (with the correct account number) to the ODFI. As part of our service, Actum will automatically apply those corrections in the subsequent debit transaction and in our database.
+
+If the Pre-Note does not get returned by the end of Day 3, the account will have been validated, and the accompanying Debit or Credit Entry will go out automatically. Similarly, if the Pre-Note does get returned, then the Entry will not be processed and the Originator should follow up with the Receiver to get the correct information.
+
+**While using Pre-Notes does delay fund settlement by three additional days, it’s considered a best practice. In fact, starting September of 2019, NACHA will require Originators to validate all newly authorized bank account numbers for web transactions using commercially reasonable methods.  And while there are some cool API-driven online bank account verification services to accomplish this (e.g., Plaid, Yodlee, Quovo, MicroBilt, etc.), Pre-Notes are the only full-coverage option available.**
+
+**Note:** Because a Pre-Note transaction must also include an authorized Debit or Credit, they are not submitted as two separate Entries, but rather, as one normal Entry with the authorized amount (subject to the same rules and exposure limits) and a special designation to be Pre-Noted.
+
+The data requirements are spelled out in greater detail in our [Integration Guide](Link) and [File Import Specifications](Link).
+
+## Credits
+
+**ACH Credits** are used to deposit money into the Receiver’s account.  
+
 The most important rule to understand here is that Credit transactions must be pre-funded.  Not all Originators will utilize ACH Credits, but the ones that do will understand that they must maintain a Credit Reserve Balance in their Actum account to fund their submitted Credit transactions.  (The Credit Reserve Balance must be separately funded by one of several options: wires initiated by the Originator, reverse wires authorized by the Originator and initiated by Actum, ACH debits initiated by Actum from the Originator’s bank account, or transfers from the Originator’s settled Debits before they are paid out.)
 In fact, Actum will automatically decline any Credit Entries submitted through the API that would cause the Credit Reserve Balance to go negative.  
 The same information that’s required for an ACH Debit transaction is also required for an ACH Credit transaction (e.g., Receiver’s name, bank account details, transaction amount, etc.).  Unlike Debits however, Credits do not have the same exposure limits, unless the Originator requests them.  
