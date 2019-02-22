@@ -1,1 +1,1 @@
-# actum-documentation.github.io
+This is where Actum's documentation can be viewed and edited.
