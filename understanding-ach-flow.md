@@ -12,7 +12,7 @@ Before building out a software or web-based solution to facilitate Automated Cle
 * [How Actum Transactions Work](#how-actum-transactions-work)
 * [Late Returns](#late-returns)
 * [Using Actum to Facilitate ACH Payments](#using-actum-to-facilitate-ach-payments)
-* [Actum's API](actum's-api)
+* [Actum's API](#actums-api)
 
 ### Introduction
 
