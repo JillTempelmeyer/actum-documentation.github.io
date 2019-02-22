@@ -5,14 +5,14 @@ Before building out a software or web-based solution to facilitate Automated Cle
 
 ## Table of Contents
 
-* Introduction
-* How ACH Works
-* ACH Returns
-* Batch Processing
-* How Actum Transactions Work
-* Late Returns
-* Using Actum to Facilitate ACH Payments
-* Actum's API
+* [Introduction](#introduction)
+* [How ACH Works](#how-ach-works)
+* [ACH Returns](#ach-returns)
+* [Batch Processing](#batch-processing)
+* [How Actum Transactions Work](#how-actum-transactions-work)
+* [Late Returns](#late-returns)
+* [Using Actum to Facilitate ACH Payments](#using-actum-to-facilitate-ach-payments)
+* [Actum's API](actum's-api)
 
 ### Introduction
 
