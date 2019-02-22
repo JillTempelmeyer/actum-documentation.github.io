@@ -45,7 +45,7 @@ Remember, transactions can be submitted to Actum through one of three methods:
 
 ### Through the API
 
-Most transactions must be submitted to Actum by 4:00 PM (Central Time) in order to be included in that day’s batch file for processing.  Transactions that are submitted after that time will be processed the following day. Originators that need a later submission deadline (e.g., West Coast and/or online businesses) can sign up for Actum’s Late-Night Processing service, which pushes back the submission deadline from 4:00 PM to 9:00 PM (Central). Both submission deadlines allow for transactions to take effect (i.e., be reflected in the Receiver’s bank account) the following banking day, usually at 9:00 AM (RDFI’s local time).
+Most transactions must be submitted to Actum by **4:00 PM** (Central Time) in order to be included in that day’s batch file for processing.  Transactions that are submitted after that time will be processed the following day. Originators that need a later submission deadline (e.g., West Coast and/or online businesses) can sign up for Actum’s Late-Night Processing service, which pushes back the submission deadline from **4:00 PM to 9:00 PM** (Central). Both submission deadlines allow for transactions to take effect (i.e., be reflected in the Receiver’s bank account) the following banking day, usually at 9:00 AM (RDFI’s local time).
 
 It’s important to note that Actum accepts transactions around the clock and will not decline a transaction for being late; it will simply be included in the next day’s batch.
 
@@ -55,9 +55,9 @@ There are two transaction types that have an earlier submission deadline: **Same
 
 Transaction files submitted to us through the SFTP can take longer to process prior to being sent to the ODFI. Therefore, the submission deadlines are 30 minutes prior to the API cutoff times, as shown in the following details:
 
-*	Regular transactions must be submitted by 3:30 PM (Central)
-*	Late-Night transactions must be submitted by 8:30PM (Central)
-*	Same-Day transactions must be submitted by 10:30AM (Central)
+*	Regular transactions must be submitted by **3:30** PM (Central)
+*	Late-Night transactions must be submitted by **8:30** PM (Central)
+*	Same-Day transactions must be submitted by **10:30AM** (Central)
 
 ## Debits
 
@@ -124,7 +124,7 @@ For example, if the RDFI was able to locate the Receiver’s account based on th
 
 If the Pre-Note does not get returned by the end of Day 3, the account will have been validated, and the accompanying Debit or Credit Entry will go out automatically. Similarly, if the Pre-Note does get returned, then the Entry will not be processed and the Originator should follow up with the Receiver to get the correct information.
 
-**While using Pre-Notes does delay fund settlement by three additional days, it’s considered a best practice. In fact, starting September of 2019, NACHA will require Originators to validate all newly authorized bank account numbers for web transactions using commercially reasonable methods.  And while there are some cool API-driven online bank account verification services to accomplish this (e.g., Plaid, Yodlee, Quovo, MicroBilt, etc.), Pre-Notes are the only full-coverage option available.**
+_While using Pre-Notes does delay fund settlement by three additional days, it’s considered a best practice. In fact, starting September of 2019, NACHA will require Originators to validate all newly authorized bank account numbers for web transactions using commercially reasonable methods.  And while there are some cool API-driven online bank account verification services to accomplish this (e.g., Plaid, Yodlee, Quovo, MicroBilt, etc.), Pre-Notes are the only full-coverage option available._
 
 **Note:** Because a Pre-Note transaction must also include an authorized Debit or Credit, they are not submitted as two separate Entries, but rather, as one normal Entry with the authorized amount (subject to the same rules and exposure limits) and a special designation to be Pre-Noted.
 
@@ -134,18 +134,34 @@ The data requirements are spelled out in greater detail in our [Integration Guid
 
 **ACH Credits** are used to deposit money into the Receiver’s account.  
 
-The most important rule to understand here is that Credit transactions must be pre-funded.  Not all Originators will utilize ACH Credits, but the ones that do will understand that they must maintain a Credit Reserve Balance in their Actum account to fund their submitted Credit transactions.  (The Credit Reserve Balance must be separately funded by one of several options: wires initiated by the Originator, reverse wires authorized by the Originator and initiated by Actum, ACH debits initiated by Actum from the Originator’s bank account, or transfers from the Originator’s settled Debits before they are paid out.)
+The most important rule to understand here is that Credit transactions must be pre-funded.  Not all Originators will utilize ACH Credits, but the ones that do will understand that they must maintain a Credit Reserve Balance in their Actum account to fund their submitted Credit transactions.
+
+The Credit Reserve Balance must be separately funded by one of several options: 
+
+* Wires initiated by the Originator
+Reverse wires authorized by the Originator and initiated by Actum
+* ACH debits initiated by Actum from the Originator’s bank account
+* Transfers from the Originator’s settled Debits before they are paid out.
+
 In fact, Actum will automatically decline any Credit Entries submitted through the API that would cause the Credit Reserve Balance to go negative.  
+
 The same information that’s required for an ACH Debit transaction is also required for an ACH Credit transaction (e.g., Receiver’s name, bank account details, transaction amount, etc.).  Unlike Debits however, Credits do not have the same exposure limits, unless the Originator requests them.  
-Developer’s Note:  We recommend that you use our Credit Reserve API to display an up-to-date balance as a reference point for your clients. 
-(6) SAME-DAY CREDITS
-Same-Day Credits are submitted just like normal Credit Entries.  They are subject to the same Credit Reserve Balance requirement as normal Credits.  The only difference is the same-day designation and the earlier submission deadline.
-How these transactions get designated as same-day Entries will be further spelled out in our Integration Guide and File Import Specifications.
-Currently, NACHA limits the transaction size for Same-Day Credits to $25,000 per Entry.  Effective March 20, 2020, NACHA will increase the per-transaction dollar limit to $100,000.
-(7) REFUNDS
-Refunds are a type of Credit transaction back to the Receiver.  
-So far, all the transaction types we’ve reviewed are submitted through a single API: Actum’s Submit API. 
-Refunds, however, are submitted through a separate Refund API.
+
+**Note:**  Actum recommends that you use our [Credit Reserve API](Link) to display an up-to-date balance as a reference point for your clients. 
+
+## Same-Day Credits
+
+**Same-Day Credits** are submitted just like normal Credit Entries.  They are subject to the same Credit Reserve Balance requirement as normal Credits.  The only difference is the same-day designation and the earlier submission deadline.
+
+How these transactions get designated as same-day Entries will be further spelled out in our [Integration Guide](Link) and [File Import Specifications](Link).
+
+**Note:** Currently, NACHA limits the transaction size for Same-Day Credits to $25,000 per Entry.  Effective March 20, 2020, NACHA will increase the per-transaction dollar limit to $100,000.
+
+## REFUNDS
+
+**Refunds** are a type of Credit transaction back to the Receiver.  
+So far, all the transaction types we’ve reviewed are submitted through a single API: Actum’s Submit API. Refunds, however, are submitted through a separate Refund API.
+
 Because Refunds can only be issued against a previously settled Debit transaction, the required data are limited to that previous transaction’s unique IDs (generated by Actum) and the amount to be refunded.
 Currently, our system does not allow for partial Refunds and the amount to be refunded must equal the amount of the initial Debit transaction.  Partial Refund functionality will be announced later this year.
 Developer’s Note:  We recommend that you create a Refund action that gets enabled for each Debit or Same-Day Debit transaction upon settling.  All previous transactions should be stored and easily searchable so that if your users get a Refund request from the Receiver, they can process it with a click of a button.
