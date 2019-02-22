@@ -59,26 +59,36 @@ Transaction files submitted to us through the SFTP can take longer to process pr
 *	Late-Night transactions must be submitted by 8:30PM (Central)
 *	Same-Day transactions must be submitted by 10:30AM (Central)
 
-(1) DEBITS
+## Debits
+
 ACH Debits are used to pull money from the Receiver’s account.  They are the most common transaction type.
 Each Debit transaction must include the following data:
+
 1.	Receiver’s Full Name (including the Company Name for B2B transactions)
 2.	Receiver’s Bank Account and Routing Numbers
 3.	Amount to be Debited
 4.	IP Address of the client connecting to your server
-In addition to having all the right data fields completed, transactions must not exceed certain exposure limits.  
-These are maximums that are set based on historical and expected transaction activity, and they are called exposure limits because they are meant to limit the ACH Network’s exposure to the risk of excessive or fraudulent transactions.
+
+In addition to having all the right data fields completed, transactions must not exceed certain **exposure limits**. These are maximums that are set based on historical and expected transaction activity, and are meant to limit the ACH Network’s exposure to the risk of excessive or fraudulent transactions.
+
 Exposure limits are different for every Originator, and it’s the Originator’s job to stay within those limits.  Transactions that exceed an exposure limit will be declined by Actum automatically, which could cause unnecessary payment delays for the Originator.
-Developer’s Note:  To help your clients avoid such delays, we recommend that you help them keep track of their exposure limits, which we make available through our Exposure Limits API.  We can even help you set up alerts for when a client is getting dangerously close to an exposure limit, so that he/she can proactively contact Actum to request a limit increase.  
+
+**Note:**  To help your clients avoid such delays, Actum recommends that you help them keep track of their exposure limits, which are available through our Exposure Limits API.  Here, you can set up alerts for when a client is getting dangerously close to an exposure limit, so that he/she can proactively contact Actum to request a limit increase.  
+
 There are 5 exposure limits:
-•	Maximum dollar amount per transaction
-•	Maximum dollar amount per day
-•	Maximum dollar amount per month
-•	Maximum transaction count per day
-•	Maximum transaction count per month
-(2) SAME-DAY DEBITS
-Same-Day Debits have the same requirements, and are subject to the same exposure limits, as regular ACH Debits.  The only difference is the submission deadline (11:00 AM instead of 4:00 PM, Central) and the effective date (today instead of tomorrow morning).  They must also be designated for same-day processing in the API request or file.
-The data requirements are spelled out in greater detail in our Integration Guide and File Import Specifications.
+
+*	Maximum dollar amount per transaction
+*	Maximum dollar amount per day
+*	Maximum dollar amount per month
+*	Maximum transaction count per day
+*	Maximum transaction count per month
+
+## SAME-DAY DEBITS
+
+Similar to regular ACH debits, **Same-Day Debits** have the same requirements, and are subject to the same exposure limits, as regular ACH Debits.  The only difference is the submission deadline (11:00 AM instead of 4:00 PM, Central) and the effective date (today instead of tomorrow morning).  They must also be designated for same-day processing in the API request or file.
+
+The data requirements are spelled out in greater detail in our [Integration Guide](Link) and [File Import Specifications](Link).
+
 Developer’s Note:  Because Actum does not decline late transactions, and instead includes them in the next batch file, it may be helpful for your software solution to include an automated post-submission message letting your client know the submission was late and will therefore take effect on the following banking day instead of later that day.
 (3) REINITIATED DEBITS
 There are two kinds of Reinitiated Debits: (a) Stopped Payment Retries and (b) NSF Retries.
