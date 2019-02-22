@@ -4,25 +4,41 @@ Now that you understand the ACH payment flow, this document will introduce you t
 
 ## Table of Contents
 
-## Introduction
+* Introduction to Transaction Types
+ * Debiting Transaction Types
+ * Debiting and Crediting Transaction Types
+ * Crediting Transaction Types
+* Submission Deadlines
+
+## Introduction to Transaction Types
 
 There are two main categories into which all 8 transaction types fall, based on the movement of money: 
 
 *	**Debiting** (pulling money from a Receiver’s account)
 *	**Crediting** (depositing money into a Receiver’s account)  
  
-DEBITING TRANSACTION TYPES:
+### Debiting Transaction Types
+
 1.	Debits
 2.	Same-Day Debits
 3.	Reinitiated Debits
-DEBITING & CREDITING TRANSACTION TYPE:
+
+### Debiting and Crediting Transaction Type
+
 4.	Pre-Notifications or Pre-Notes
-CREDITING TRANSACTION TYPES:
+
+### Crediting Transaction Type:
+
 5.	Credits
 6.	Same-Day Credits
 7.	Refunds
 8.	Micro-Deposits 
-Remember, transactions can be submitted to Actum through one of three methods: (a) on the web through our Virtual Terminal, (b) by uploading transaction files via the shared SFTP, or (c) through a direct API integration. 
+
+Remember, transactions can be submitted to Actum through one of three methods:
+
+* On the web through the Virtual Terminal
+* Uploading transaction files via the shared SFTP
+* Through a direct API integration. 
 
  
 SUBMISSION DEADLINES
