@@ -4,21 +4,21 @@ Now that you understand the ACH payment flow, this document will introduce you t
 
 ## Table of Contents
 
-* Introduction to Transaction Types
-   * Debiting Transaction Types
-   * Debiting and Crediting Transaction Types
-   * Crediting Transaction Types
-* Submission Deadlines
-    * Through the API
-    * Through the SFTP
-* Debits
-* Same-Day Debits
-* Reinitiated Debits
-* Pre-Notes
-* Credits
-* Same-Day Credits
-* Refunds
-* Micro-Deposits
+* [Introduction to Transaction Types](#Introduction-to-Transaction-Types)
+   * [Debiting Transaction Types](#Debiting-Transaction-Types)
+   * [Debiting and Crediting Transaction Types](#Debiting-and-Crediting-Transaction-Types)
+   * [Crediting Transaction Types](#Crediting-Transaction-Types)
+* [Submission Deadlines](#Submission-Deadlines)
+    * [Through the API](#Through-the-API)
+    * [Through the SFTP](#Through-the-SFTP)
+* [Debits](#Debits)
+* [Same-Day Debits](#Same-Day-Debits)
+* [Reinitiated Debits](#Reinitiated-Debits)
+* [Pre-Notes](#Pre-Notes)
+* [Credits](#Credits)
+* [Same-Day Credits](#Same-Day-Credits)
+* [Refunds](#Refunds)
+* [Micro-Deposits](#Micro-Deposits)
 
 ## Introduction to Transaction Types
 
