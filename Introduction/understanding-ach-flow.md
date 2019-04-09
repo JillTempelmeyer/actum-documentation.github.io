@@ -1,6 +1,6 @@
 # Understanding the ACH Payment Flow
 
-Before building out a software or web-based solution to facilitate Automated Clearing House (ACH) payments, you'll want to make sure that you understand how the ACH payment flow works.  The rules and processes around ACH will impact the features you build and how you communicate the status of a transaction. 
+Before embedding software or web-based solution to facilitate Automated Clearing House (ACH) payments, you'll want to make sure that you understand how the ACH payment flow works.  The rules and processes around ACH will impact the features you build and how you communicate the status of a transaction. 
 
 This document will briefly introduce you to the ACH payment flow and how it relates to Actum's ACH processing procedures and policies.
 
@@ -12,7 +12,7 @@ This document will briefly introduce you to the ACH payment flow and how it rela
 * [Batch Processing](#batch-processing)
 * [How Actum Transactions Work](#how-actum-transactions-work)
 * [Late Returns](#late-returns)
-* [Using Actum to Facilitate ACH Payments](#using-actum-to-facilitate-ach-payments)
+* [Using Actum outto Facilitate ACH Payments](#using-actum-to-facilitate-ach-payments)
 * [Actum's API](#actums-api)
 
 ## Introduction
