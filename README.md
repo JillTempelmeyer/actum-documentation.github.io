@@ -2,5 +2,5 @@ Staging/test repository where Actum's documentation can be viewed and edited.. t
 
 ## Table of Contents:
 
-### [Introduction](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/Introduction.md)
-### [Getting Started](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/Getting-Started.md)
+* [**Introduction**](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/Introduction.md)
+* [**Getting Started**](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/Getting-Started.md)
