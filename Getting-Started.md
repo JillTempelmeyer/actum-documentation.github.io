@@ -16,7 +16,7 @@ It is recommended that you change your password immediately upon login. There is
 
 ## Step 3: Create a Call
 
-To create a new API call, you'll first want to join the server at [https://join.actumprocessing.com/cgi-bin/dbs/man_trans.cg](https://join.actumprocessing.com/cgi-bin/dbs/man_trans.cgi) with the followig accountinformation: ...
+To create a new API call, you'll first want to join the server at [https://join.actumprocessing.com/cgi-bin/dbs/man_trans.cg](https://join.actumprocessing.com/cgi-bin/dbs/man_trans.cgi) with the following account information: ...
 
 **Note:** All API request methods are `POST` only. In this case, `POST` requests similarly to `GET` requests, in that the requests function primarily to return information pertaining to a specific resource. 
 
