@@ -25,3 +25,6 @@ The `Accounts` object represents the bank account information associated with th
 | `acct_type` | Use one of the following values for this parameter: `C` for checking, or `S` for savings. This field is required for savings accounts only. | -- | O |
 | `chk_fract` | Fractional number (Example: `123-45/1234`..... | ALPHANUMERIC (16) | N |
 | `chk_number` | The customer's check number | NUMBER | N |
+| `currency` | The type of currency being processed. Only U.S. currency is supported. The default value will reflect `US` if nothing is passed in. | -- | N |
+
+
