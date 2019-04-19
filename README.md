@@ -8,3 +8,4 @@ Staging/test repository where Actum's documentation can be viewed and edited.. t
 * [**Submitting a Transaction**](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/API%20Reference/Submitting%20a%20Transaction.md)
 * **Tracking a Transaction**
 * **Working with Batch Imports**
+* [**Additional Resources**](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/Resources/Additional%20Resources.md)
