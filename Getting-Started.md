@@ -45,3 +45,6 @@ Explanation and examples
 ### Step 4: Test your Calls
 
 Description
+
+In-app consequences of a return
+Payment retries and refunds
