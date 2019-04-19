@@ -1,6 +1,9 @@
 # Customers and Accounts
 
-The following details explain how to submit debit and credit transactions to Actum.
+View customer account information
+Verify customer accounts with Authentecheck
+Initiate and verify micro-deposits
+
 
 ### Merchant Object  [consider renaming if integration partners would use this in a different way than a merchant]
 
