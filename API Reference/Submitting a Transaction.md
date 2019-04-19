@@ -2,6 +2,11 @@
 
 The following tables outline the required and optional parfields to submit a debit/credit to the Actum Processing system.
 
+It may be helpful to familiarize yourself with the following documents:
+
+* [ACH Transaction Types](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/ACH%20transaction%20Types.md)
+* [ACH Transaction Lifestyle)[
+
 ### Account Object
 
 The `Accounts` object represents the bank account information associated with the customer being debited or credited.
