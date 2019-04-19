@@ -1,8 +1,8 @@
 # Customers and Accounts
 
-View customer account information
-Verify customer accounts with Authentecheck
-Initiate and verify micro-deposits
+* View customer account information
+* Verify customer accounts with Authentecheck
+* Initiate and verify micro-deposits
 
 
 ### Merchant Object  [consider renaming if integration partners would use this in a different way than a merchant]
