@@ -8,8 +8,8 @@ The `merchant` object represents account information pertaining to the merchant 
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-| `parent_id` | Parent ID of merchant. [max Length = 8 ] | ALPHANUMERIC | Y |
-| `sub_id` | Sub ID of merchant. [max Length = 8 ] | ALPHANUMERIC | Y |
+| `parent_id` | Parent ID of merchant. [max Length = 8] | ALPHANUMERIC | Y |
+| `sub_id` | Sub ID of merchant. [max Length = 8] | ALPHANUMERIC | Y |
 | `pmt_type` | Type of payment being submitted (check, or `chk`, is the default value). | -- | N |
 | `response_location` | The `man_trans.cgi` script will respond to this URL with response variables if passed in. | Full path URL | N |
 
@@ -48,3 +48,16 @@ The `Consumer` object represents the Know Your Customer (KYC) details associated
 | `shipstate` | The zip code included in the consumer's shipping address. [max length = 16] | ALPHANUMERIC | N |
 | `custssn` | The social security details of the consumer. This field may be expressed as the last four digits, or the full social security number. This field may be required, based on merchant settings. [max length = 16] | -- | C |
 | `birth_date` | The consumer's birth date, expressed in `MMDDYYYY` format. This field may be required, based on merchant settings. | -- | C | 
+
+
+### Billing Information
+
+Information about setting up recurring payments (and can expand on how to manage these here, also)
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `initial_amount` | The initial amount of a bill payment. The field should be specified in XX.XX format, such as `49.95` for the amount. | -- | Y |
+| `recur_amount` | The recurring Amount not required for one-time billing. Default to `initial_amount` if no value is defined. | -- | N |
+| `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |
+| `days_til_recur` | The number of days remaining until `recur_amount` is billed | NUMBER | N |
+| `max_num_billing` | Maximum number of times consumer will be billed.  Default to “-1” (perpetual billing) if no value is defined. | NUMBER | N |
