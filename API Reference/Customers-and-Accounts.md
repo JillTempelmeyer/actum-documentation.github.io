@@ -11,3 +11,4 @@ The `merchant` object represents account information pertaining to the merchant 
 | `parent_id` | Parent ID of merchant | ALPHANUMERIC (8) | Y |
 | `sub_id` | Sub ID of merchant | ALPHANUMERIC (8) | Y |
 | `pmt_type` | Type of payment being submitted (check, or `chk`, is the default value) | -- | Y |
+| `response_location` | The `man_trans.cgi` script will respond to this URL with response variables if passed in | Full path URL | N |
