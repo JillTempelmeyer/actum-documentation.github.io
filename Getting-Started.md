@@ -21,3 +21,19 @@ To create a new API call, you'll first want to join the server at [https://join.
 **Note:** All API request methods are `POST` only. In this case, `POST` requests act similarly to `GET` requests, in that the requests function primarily to return information pertaining to a specific resource. 
 
 The content type is `application/x---www---form---urlencoded **or** multipart/form--data`.
+
+#### Understanding Responses
+
+Text to explain returns drom different objects.
+
+#### Status Codes
+
+Explanation and table of status codes.
+
+#### Understanding Webhooks
+
+Explanation and examples
+
+### Step 4: Test your Calls
+
+Description
