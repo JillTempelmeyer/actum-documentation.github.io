@@ -1,10 +1,10 @@
 # Submitting a Transaction
 
-The following tables outline the required and optional parfields to submit a debit/credit to the Actum Processing system.
+The following information outlines the required and optional parfields for submitring a debit or credit transaction to Actum.
 
-It may be helpful to familiarize yourself with the following documents:
+It may be helpful to familiarize yourself with the following resources, prior to submitting a transction.
 
-* [ACH Transaction Types](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/ACH%20transaction%20Types.md)
+* [ACH Transaction Types](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/API%20Reference/ACH%20transaction%20Types.md)
 * [ACH Transaction Lifestyle](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/API%20Reference/ACH%20transaction%20Lifestyle.md)
 
 ### Account Object
