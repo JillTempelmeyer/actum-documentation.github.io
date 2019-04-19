@@ -5,7 +5,7 @@ The following tables outline the required and optional parfields to submit a deb
 It may be helpful to familiarize yourself with the following documents:
 
 * [ACH Transaction Types](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/ACH%20transaction%20Types.md)
-* [ACH Transaction Lifestyle)[
+* [ACH Transaction Lifestyle](https://github.com/JillTempelmeyer/jilltempelmeyer.github.io/blob/master/API%20Reference/ACH%20transaction%20Lifestyle.md)
 
 ### Account Object
 
