@@ -196,6 +196,100 @@ The response may contain the following parameters:
 | `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
 | `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
 | `action_code` | You will want to enter `action_code=A` to tell the script that you are cancelling further recurring transactions. Max length = 16 | ALPHANUMERIC | Y |
-| `prev_history_id` | The `History_ID` from the transaction that you would like to check the status on. | Max length = 32 | VARCHAR | If `order_id` is not provided |
+| `prev_history_id` | The `History_ID` from the transaction that you would like to check the status on. Max length = 32 | VARCHAR | If `order_id` is not provided |
 | `order_id` |The order ID of the transaction you would like to check the status on. Max length = 32 | ALPHANUMERIC | Y |
 | `type` | The transaction type can be either `basic` or `extended` (if neither are provided, then `default=basic`) | -- | N
+
+
+# Validation Errors
+
+Upon submission, the Actum Processing system will validate each form field.  If all required form fields are valid, the request will be sent to our transaction server.  If a form field is invalid or not supplied as required, the output returned to your script will contain a listing of errors, which are listed below.
+
+* Email address is required.
+* Email address is invalid.
+* Email address is too long.
+* First name is required.
+* First name <First Name> is invalid.
+* Last name is required.
+* Last name <Last Name> is invalid.
+* Last name is too long.
+* Address is required.
+* Address is invalid.
+* Address is too long.
+* City is required.
+* City is invalid.
+* City is too long.
+* State is required.
+* State is invalid.
+* State is too long.
+* Account Number is required.
+* Account Number is invalid.
+* Account Number is too long.
+* Routing Number is required.
+* Routing Number is invalid.
+* Routing Number is too long.
+* Routing Number must be at least 8 in length.
+* Zip Code required.
+* Zip Code is invalid.
+* Zip Code is too long.
+* Zip Code must be at least 5 in length.
+* Phone Number is required.
+* Phone Number is invalid.
+* Phone Number is too long.
+* Social Security Number is required.
+* Social Security Number is invalid.
+* Social Security Number must be at least 4 in length.
+* Social Security Number is too long.
+* Date of Birth month is required.
+* Date of Birth month is too long.
+* Date of Birth month is invalid.
+* Date of Birth year is required.
+* Date of Birth year is too long.
+* Date of Birth year is invalid.
+* Date of Birth day is required.
+* Date of Birth day is too long.
+* Date of Birth day is invalid.
+* Invalid birth date entered.
+ 
+ 
+# Decline Codes
+
+| Code | Definition |
+|---|---|
+| DAR104	| Account number length > 17 |                                                                                  
+| DAR105	| Account number contains 123456 |                                                                               
+| DAR108	| Invalid ABA Number |                                                                                           
+| DAR109	| Invalid Fractional |                                                                                           
+| DCR103	| Name scrub |                                                                                                   
+| DCR105	| Email blocking |                                                                                               
+| DCR106	| Previous scrubbed account (Negative BD) |                                                                      
+| DCR107	| Recurring Velocity Check Exceeded |                                                                            
+| DDR101	| Duplicate Check indicates that this transaction was previously declined |                                      
+| DMR001	| Invalid merchant |                                                                                             
+| DMR002	| Invalid billing profile |                                                                                     
+| DMR003	| Invalid cross sale ID |                                                                                        
+| DMR004	| Invalid Consumer Unique |                                                                                      
+| DMR005	| Missing field: `processtype`, `parent_id`, `mersubid`, `accttype`, `consumername`, `accountname`, `host_ip`, or `client_ip` |
+| DMR006	| Payment Type Not Supported |                                                                                  
+| DMR007	| Invalid Origination Code |                                                                                     
+| DMR104	| Merchant not authorized for credit |                                                                           
+| DMR105	| Invalid or non-matching original order for `repeat-order-only` subid |                                           
+| DMR106	| Invalid Amount Passed In |                                                                                   
+| DMR107	| Invalid Merchant TransID Passed In |                                                                           
+| DMR109	| Invalid SysPass or Subid |                                                                                     
+| DMR110	| Future Initial Billing not authorized for this merchant |                                                      
+| DMR201	| Amount over the per-trans limit |                                                                              
+| DMR202	| Amount over daily amount limit |                                                                               
+| DMR203	| Count over daily count limit |                                                                                 
+| DMR204	| Amount over monthly amount limit |                                                                             
+| DMR205	| Count over monthly count limit |                                                                               
+| DOR002	| A recur has been found for Order |                                                                             
+| DOR003	| A return has been found for Order |                                                                           
+| DOR004	| Order was not found |                                                                                          
+| DOR005	| Order is not active |                                                                                         
+| DOR006	| The merchant does not match the order |                                                                      
+| DOR008	| Could not find original transaction for orderkeyid |                                                          
+| DOR009	| Recur Record not found for keyid |                                                                            
+| DOR010	| Multiple transactions found with that TransID |                                                                
+| DTA001	| Consumer identity could not be verified |
+| DTE200	| Account information could not be verified |                                                                   
