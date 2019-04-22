@@ -293,3 +293,89 @@ Upon submission, the Actum Processing system will validate each form field.  If 
 | DOR010	| Multiple transactions found with that TransID |                                                                
 | DTA001	| Consumer identity could not be verified |
 | DTE200	| Account information could not be verified |                                                                   
+
+
+# Sample Responses
+
+Sample responses come in two types: `Accepted` and `Declined`.  Each type of response is outlined below in the following sections and can be directed to the same or different scripts, based on preference.  
+
+Responses are not URL encoded and are new-line delimited.  Below is a sample response, which contains the status of the transaction `Accepted` or `declined`, a reason for any declined status, and a set of variables returned from the transaction server, and `PostedVars`, which is a block that contains all variables passed to the Actum Processing system, except for the account information.
+
+### Example Accepted Response
+
+```
+status=Accepted
+order_id=12345678
+history_id=1234567
+consumer_unique=/GNmcHNsfsUHE
+authcode=CHECK PRE-AUTH:001234567
+PostedVars=BEGIN
+parent_id=ACTUM
+sub_id=SUBID
+pmt_type=CHK
+custname=John Doe
+custemail=alkdj@alkdj.com
+custaddress1=123 John Doe Way
+custaddress2=
+custcity=Sometown
+custstate=TX
+custzip=78717
+custphone=1234567890
+initial_amount=1.25
+billing_cycle=2
+recur_amount=99.99
+days_til_recur=14
+max_num_billing=6
+currency=US
+chk_number=1234
+PostedVars=END 
+```
+
+### Example Declined Response
+
+```
+status=declined
+reason=Your transaction has been declined.
+history_id=9396994
+authcode=Invalid ABA Number
+PostedVars=BEGIN
+parent_id=ACTUM
+sub_id=SUBID
+pmt_type=CHK
+custname=John Doe
+custemail=alkdj@alkdj.com
+custaddress1=123 John Doe Way
+custaddress2=
+custcity=Sometown
+custstate=TX
+custzip=78717
+custphone=1234567890
+profile_id=	
+initial_amount=1.25
+billing_cycle=2
+recur_amount=99.99
+days_til_recur=14
+max_num_billing=6
+currency=US
+chk_number=1234
+PostedVars=END 
+```
+
+
+# Transaction History Files
+
+The transaction history files contain all initial sales (Check Pre-Auth, Same-day Debit), Returns (Check Return), Funded Debits (Check Settlement), and Refunds / Credits (Check Refund, Same-day Credit) from the previous day.  A transaction history file will come in a flat, quote-qualifier, comma-delimited file, which can either be picked up from our SFTP server or sent to the merchant’s SFTP server. 
+
+The following Operating systems are expecting the following to know when there is an end of line:
+
+UNIX uses a (LF) Linefeed
+Windows uses a (CRLF) Carriage Return / Line Feed
+The Transaction History File on our server will only have a (LF) Line Feed
+
+If you transfer the file correctly using ASCII on a Windows Machine you will get a file with (CRLF) Carriage Return / Line Feed
+
+If transferred correct (ASCII) it will have CRLF on windows
+
+If transferred incorrectly the file in BINARY the file will looked garbled and all data will be on the first line.
+
+It is imperative that you download the file in ASCII to ensure there is no data corruption.
