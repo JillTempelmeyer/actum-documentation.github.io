@@ -85,11 +85,30 @@ Refunds can only be submitted against the transaction status of `Check Settlemen
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-| `username` | The Merchant's Actum portal username. MAX length = 16 | ALPHANUMERIC | R |
+| `username` | The Merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | R |
 | `password` | The Merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | R |
 | `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | R |
-| `action_code` | You will want to enter `action_code=K` to tell the script we are revoking the transaction. MAX LEN = 16 | ALPHANUMERIC | R |
-| `order_id` |The order ID of the transaction you want to revoke. Max length = 32 | ALPHANUMERIC | R |
+| `action_code` | You will want to enter `action_code=R` to tell the script we are refunding the transaction. Max length = 16 | ALPHANUMERIC | R |
+| `prev_history_id` | The `History_ID` of the transaction you want to refund. | NUMBER | If `order_id` is not provided |
+| `order_id` |The order ID of the transaction you want to refund. Max length = 32 | ALPHANUMERIC | If `prev_history_id` is not provided |
+| `initial_amount` | The initial amount of the bill.  Partial refunds are not accepted. | XX.XX ex. 49.95 | R |
  
+# Revoking Transactions
 
+Revoking a transaction will prevent the transaction from being originated to the bank for processing. Standard debits and credits can be revoked until 4pm CT the same day of submission.  Same Day Debits / Credits can be revoked until 11am CT.  If you have the ability to originate transactions using late-night processing, you will have until 9pm CT to revoke.
 
+The response may contain the following parameters:
+*	`status=success`
+*	`status=Error` 
+* `error=Order Number Not Found` (transaction has already originated)
+
+(note that a lot of info. in this section is repetitive)
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `username` | The Merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | R |
+| `password` | The Merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | R |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | R |
+| `action_code` | You will want to enter `action_code=K` to tell the script we are revoking the transaction. Max length = 16 | ALPHANUMERIC | R |
+| `prev_history_id` | The `History_ID` of the transaction you want to revoke. | NUMBER | If `order_id` is not provided |
+| `order_id` |The order ID of the transaction you want to revoke. Max length = 32 | ALPHANUMERIC | R |
