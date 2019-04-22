@@ -85,13 +85,13 @@ Refunds can only be submitted against the transaction status of `Check Settlemen
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-| `username` | The Merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | R |
-| `password` | The Merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | R |
-| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | R |
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | Y |
 | `action_code` | You will want to enter `action_code=R` to tell the script we are refunding the transaction. Max length = 16 | ALPHANUMERIC | R |
 | `prev_history_id` | The `History_ID` of the transaction you want to refund. | NUMBER | If `order_id` is not provided |
-| `order_id` |The order ID of the transaction you want to refund. Max length = 32 | ALPHANUMERIC | If `prev_history_id` is not provided |
-| `initial_amount` | The initial amount of the bill.  Partial refunds are not accepted. | XX.XX ex. 49.95 | R |
+| `order_id` |The order ID of the transaction you want to refund. Max length = 32 | ALPHANUMERIC | Y |
+| `initial_amount` | The initial amount of the bill.  Partial refunds are not accepted. | XX.XX ex. 49.95 | Y |
  
 # Revoking Transactions
 
@@ -106,9 +106,96 @@ The response may contain the following parameters:
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-| `username` | The Merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | R |
-| `password` | The Merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | R |
-| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | R |
-| `action_code` | You will want to enter `action_code=K` to tell the script we are revoking the transaction. Max length = 16 | ALPHANUMERIC | R |
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | Y |
+| `action_code` | You will want to enter `action_code=K` to tell the script we are revoking the transaction. Max length = 16 | ALPHANUMERIC | Y |
 | `prev_history_id` | The `History_ID` of the transaction you want to revoke. | NUMBER | If `order_id` is not provided |
-| `order_id` |The order ID of the transaction you want to revoke. Max length = 32 | ALPHANUMERIC | R |
+| `order_id` |The order ID of the transaction you want to revoke. Max length = 32 | ALPHANUMERIC | Y |
+
+
+# Recurring Transactions
+
+### Canceling Recurring Transactions
+
+In order to cancel recurring transactions, the following parameters are required.  Please note that “canceling” is not the same as “revoking” a transaction.
+
+The response may contain the following parameters:
+
+*	`status=success lastdateactive=01/01/2019` (if order is active)
+* `status=Error error=Order Inactive!` (if order is already canceled)
+
+When canceling recurring transactions, please note the transaction that is scheduled to originate the same day as the cancel request will still originate to the bank.
+
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | Y |
+| `action_code` | You will want to enter `action_code=C` to tell the script that we are canceling further recurring transactions. Max length = 16 | ALPHANUMERIC | Y |
+| `prev_history_id` | The `History_ID` of the transaction you would like to cancel. | NUMBER | If `order_id` is not provided |
+| `order_id` |The order ID of the transaction you would like to cancel. Max length = 32 | ALPHANUMERIC | Y |
+| `canceltype` | `canceltype=1` | NUMBER | Y |
+| `response_location` | The URL where you would like to store the response. | Full path URL | N |
+
+
+### Editing Existing Transactions
+
+In order to edit an existing transaction that is scheduled to originate the same day, the following parameters are needed in the request.  Please note that if you change any of the consumer information, it will be updated, as well.
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | Y |
+| `action_code` | You will want to enter `action_code=D` to indicate that this transaction is being updated. Max length = 16 | ALPHANUMERIC | Y |
+| `order_id` | The order ID you would like to update. | NUMBER | Y |
+| `recur_amount` | The new billing amount for the consumer. | XX.XX ex. 49.95 | Y |
+| `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |   
+| `max_num_billing` | The maximum number of times that a consumer will be billed (-1 is for perpetual billing). | NUMBER | Y |
+| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | R |
+
+### Updating Recurring Transactions
+
+To update the billing amount, billing cycle, maximum number of billings, or the next billing date, the following parameters are required.  If any of the parameters are left blank, the adjustments will not take place.  Please note that this request will apply to the transaction scheduled for the following business day.
+
+The response may contain the following parameters:
+*	`status=success`
+*	`status=error` (with reason for error)
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | Y |
+| `action_code` | You will want to enter `action_code=D` to indicate that this transaction is being updated. Max length = 16 | ALPHANUMERIC | Y |
+| `order_id` | The order ID you would like to update. | NUMBER | Y |
+| `recur_amount` | The new billing amount for the consumer. | XX.XX ex. 49.95 | Y |
+| `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |   
+| `max_num_billing` | The maximum number of times that a consumer will be billed (-1 is for perpetual billing). | NUMBER | Y |
+| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | R |
+
+
+# Transaction Status
+
+To check the transaction status, the following parameters are required.
+
+The response may contain the following parameters:
+* `curr_bill_status`:  PreAuth, Settled, Returned, Declined
+*	`refund_status` (if applicable):  Accepted, Pending, Declined 
+*	`join_date` 
+*	`recurstatus` (only for type=extended):  Active, Inactive   
+*	`billing_cycle` (only for type=extended)   
+*	`last_billing_date`  (only for type=extended)   
+*	`next_billing_date`  (only for type=extended)
+*	`error`
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `username` | The merchant's Actum portal username. Max length = 16 | ALPHANUMERIC | Y |
+| `password` | The merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | Y |
+| `action_code` | You will want to enter `action_code=A` to tell the script that you are cancelling further recurring transactions. Max length = 16 | ALPHANUMERIC | Y |
+| `prev_history_id` | The `History_ID` from the transaction that you would like to check the status on. | Max length = 32 | VARCHAR | If `order_id` is not provided |
+| `order_id` |The order ID of the transaction you would like to check the status on. Max length = 32 | ALPHANUMERIC | Y |
+| `type` | The transaction type can be either `basic` or `extended` (if neither are provided, then `default=basic`) | -- | N
