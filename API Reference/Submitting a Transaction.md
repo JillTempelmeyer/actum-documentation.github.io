@@ -154,7 +154,7 @@ In order to edit an existing transaction that is scheduled to originate the same
 | `recur_amount` | The new billing amount for the consumer. | XX.XX ex. 49.95 | Y |
 | `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |   
 | `max_num_billing` | The maximum number of times that a consumer will be billed (-1 is for perpetual billing). | NUMBER | Y |
-| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | R |
+| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | Y |
 
 ### Updating Recurring Transactions
 
@@ -174,7 +174,7 @@ The response may contain the following parameters:
 | `recur_amount` | The new billing amount for the consumer. | XX.XX ex. 49.95 | Y |
 | `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |   
 | `max_num_billing` | The maximum number of times that a consumer will be billed (-1 is for perpetual billing). | NUMBER | Y |
-| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | R |
+| `next_bill_date` | The date of the next billing. | DATE MM/DD/YYYY | Y |
 
 
 # Transaction Status
@@ -368,14 +368,112 @@ The transaction history files contain all initial sales (Check Pre-Auth, Same-da
 
 The following Operating systems are expecting the following to know when there is an end of line:
 
-UNIX uses a (LF) Linefeed
-Windows uses a (CRLF) Carriage Return / Line Feed
-The Transaction History File on our server will only have a (LF) Line Feed
+* UNIX uses a (LF) Linefeed
+* Windows uses a (CRLF) Carriage Return / Line Feed
+* The Transaction History File on our server will only have a (LF) Line Feed
 
-If you transfer the file correctly using ASCII on a Windows Machine you will get a file with (CRLF) Carriage Return / Line Feed
+If you transfer the file correctly using ASCII on a Windows Machine, you will get a file with (CRLF) Carriage Return / Line Feed. If transferred incorrectly, the file in BINARY will looked garbled and all data will be on the first line.
 
-If transferred correct (ASCII) it will have CRLF on windows
+You will need to download the file in ASCII to make sure there is no data corruption.
 
-If transferred incorrectly the file in BINARY the file will looked garbled and all data will be on the first line.
+## Transaction History File Format
 
-It is imperative that you download the file in ASCII to ensure there is no data corruption.
+### Returned Variables
+
+The naming format of the transaction history file will be:
+
+`PARENTID-trans-ACTUM-YYYYMMDD.txt` e.g.: `ACTUMTEST-trans-ACTUM-20050212.txt`
+
+The files will contain the following fields:
+
+| Field Name | Description |
+|---|---|
+| SubID	| Your SubID assigned by Actum Processing |
+| Transaction Date |	Date of the transaction |
+| Amount |	Amount of the transaction |
+| Consumer Name	| Consumer's full name |
+| Account Name |	Consumer's account name |
+| Transaction Type	| Details the transaction type Check Pre-Auth for preauthorization, Check Return for returned check, Check Settlement for funds that have been received.  Check Refund for refund or credit.  Same-Day Debit for same-day debit.  Same-Day Credit for same-day credit. ACH NOC for notice of change.  Check Pre-Note for pre-note transaction |
+| Transaction Result	Details whether the transaction was approved, declined, or returned |
+| Authorization Code	This is the code that we received from the Consumer's bank |
+| Account Type Description	Will always be check |
+| Recurring Description	Will be initial or recurring |
+| Company Name	| Company Name if given during transaction |
+| Billing Address |	Consumer Mailing information |
+| Billing Address2	| |
+| Billing City |	Consumer City |
+| Billing State	| Consumer State |
+| Billing Zip	| Consumer Zip Code |
+| Billing Country | |	 
+| Shipping Address | |
+| Shipping Address2	 | |
+| Shipping City | |	 
+| Shipping State	| | 
+| Shipping Zip	| | 
+| Shipping Country	| | 
+| Phone Number |	Consumer Phone Number |
+| E-Mail Address |	Consumer E-mail Address |
+| IP Address	| The IP address of the consumer |
+| Server Referrer	| This field contains referrer information that was submitted during transaction |
+| MerchantOrderNumber |	This field contains any extra affiliate code information submitted during transaction |
+| Order Number	| Unique key assigned to every order |
+| History KeyID	| Unique key associated with each transaction of an order |
+| Reference KeyID	| Contains the previous History Keyid |
+| Profile KeyID	| If a billing profile keyid was provided it will be listed here |
+| Reseller Code	| Used for cross sell transactions |
+| Partner Code	| Will contain the partner associated with this transaction |
+| Username	| If username is sent, we will include it here |
+| ConsumerUniqueID	| Will be used later for offering One-Click sales to current/former consumers |
+
+The file format should be in the order listed above, but here is each field inside example delimiting fields:
+
+
+"SubID","Transaction Date","Amount","Consumer Name","Account Name","Transaction Type","Transaction Result","Authorization Code","Routing Number","Account Number","Account Type Description","Credit Card Number","Credit Card Expiration Date","Recurring Description","Company Name","Billing Address","Billing Address2","Billing City","Billing State","Billing Zip","Billing Country","Shipping Address","Shipping Address2","Shipping City","Shipping State","Shipping Zip","Shipping Country","Phone Number","E-Mail Address","IP Address","Server Referrer","MerchantOrderNumber","Order Number","History KeyID","Reference KeyID","Profile KeyID","Reseller Code","Partner Code","Username","ConsumerUniqueID"
+
+### Returned Variables Examples
+
+**Note:** There will be no word wrap in the Transaction history files; therefore, each example listed below will actually be on one line.
+
+**Check Pre-Auth:**
+"ACTUM01","Jun 28, 2003 12:03AM","6.95","John Doe","John Doe","Check Pre-Auth","Approved","CheckAuth:009999999","HIDDEN","HIDDEN","Check","","","Initial","","123 JohnDoe st","","Johnson City","TX","12345","","","","","","","","(123)123-4567","johndoe@website.com","123.123.123.123","","1000","1234567","1234567","","12345","","",""
+
+**Check Settlement:**
+"ACTUM02","Jun 28, 2003 02:21AM","6.95","John Doe","John Doe","Check Settlement","Approved","CheckAuth:009999999","HIDDEN","HIDDEN","Check","","","Initial","","123 JohnDoe st","","Johnson City","TX","12345","","","","","","","","(123)123-4567","johndoe@website.com","123.123.123.123","","1000","1234567","1234567","","12345","","",""
+
+**Check Late Return:**
+"ACTUM02","Jun 28, 2003 02:21AM","6.95","John Doe","John Doe","Check Late Return","Declined","Consumer Advises: Not Authorized","HIDDEN","HIDDEN","Check","","","Initial","","123 JohnDoe st","","Johnson City","TX","12345","","","","","","","","(123)123-4567","johndoe@website.com","123.123.123.123","","1000","1234567","1234567","","12345","","",""
+
+**Check Return:**
+"ACTUM03","Jun 28, 2003 02:27AM","6.95","John Doe","John Doe","Check Return","Declined","NSF","HIDDEN","HIDDEN","Check","","","Initial","","123 JohnDoe st","","Johnson City","TX","12345","","","","","","","","(123)123-4567","johndoe@website.com","123.123.123.123","","1000","1234567","1234567","","12345","","",""
+
+### Order Tracking
+
+**Persistent Data:** Order Number, SubID
+**Reference Data:** History KeyID, Reference KeyID
+
+### Definitions
+
+**Order:** An order is all transactions of Check Pre-Auth, Check Settlement, Check Return, Check Late Return for an order by a consumer.
+
+**Transaction:** This is one particular piece of a transaction as in the Check Pre-Auth, etc… 
+**Transaction Block:** Is the block of transactions from validating the account / requesting the monies to receiving the monies or receiving a return. One order can have several transaction blocks for the initial transactions and the recurred transactions.
+
+**To Determine Initial Transactions:**  
+Take all transactions for a date range then parse them out by Check Pre-Auth where the Reference KeyID is blank and Recurring Description is Initial. This number gives you the total number of initial signups during that time period.
+
+**Refunds:** Refunds can only be issued after a Check Settlement.
+
+** Tracking the Stages of an Order:** Each product sold will have a persistent Order Number throughout the life span of the order, even when it is in a recurring stage. The combination of the Order Number, Reference KeyID and History KeyID will let you track the step-by-step transactions that led to the current status of an order.  
+
+Please refer to the Transaction Life Cycle below for clarification on the below paragraph.
+
+** Linking up Transactions for a Particular Order:**
+
+If you get a Check Return but you don’t know where it occurred in the order or from what transaction block, you can use referencekeyid found with the Check Return entry to start the process of finding which block it came from for this particular order. Take this reference keyid and look for a transaction that contains that referencekeyid as the historykeyid. This should return the Check Pre-Auth for which we received the Check Return. You can use this process for any Check Return, Check Late Return, Check Refund, Check Settlement, ACH NOC, etc… until you find a transaction entry that has a blank referencekeyid. This puts you at the beginning of this particular transaction block.
+
+One thing to note is that each time we recur a transaction the Check Pre-Auth will have a blank referencekeyid indicating that a new transaction block is starting. The easiest way to see the transaction blocks in order would be to grab all transactions for a particular orderid and then sort those by date and referencekeyid, which should put those into order from start to finish. Remember, sometimes you may see a Check Settlement for the recurred billing before the initial trial price settles.
+
+Another approach if you wanted to display each transaction block would be to grab all Check Pre-Auth sorted by date with a blank referencekeyid. Then, go through each of those using the historykeyid and find the next transaction in the list by looking for the next transaction that contains that history keyid as the referencekeyid. Grab the history keyid for that transaction and look for the transaction that contains that as the referencekeyid. You can continue this process until you get no more results indicating that you have hit the end of the transaction block and continue with the next transaction block in the list.
+
+Our recommendation is to import everything because the data can be used to your advantage later. Order Number and SubID will always be persistent, and if you sort the transactions by date, you can get a very clear idea of what went on with the account.  In rare cases, we send two transactions per Order Number in one day, but timestamps should show the definitive order.
+
