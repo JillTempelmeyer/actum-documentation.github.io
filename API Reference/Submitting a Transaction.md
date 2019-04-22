@@ -394,10 +394,10 @@ The files will contain the following fields:
 | Consumer Name	| Consumer's full name |
 | Account Name |	Consumer's account name |
 | Transaction Type	| Details the transaction type Check Pre-Auth for preauthorization, Check Return for returned check, Check Settlement for funds that have been received.  Check Refund for refund or credit.  Same-Day Debit for same-day debit.  Same-Day Credit for same-day credit. ACH NOC for notice of change.  Check Pre-Note for pre-note transaction |
-| Transaction Result	Details whether the transaction was approved, declined, or returned |
-| Authorization Code	This is the code that we received from the Consumer's bank |
-| Account Type Description	Will always be check |
-| Recurring Description	Will be initial or recurring |
+| Transaction Result |	Details whether the transaction was approved, declined, or returned |
+| Authorization Code	| This is the code that we received from the Consumer's bank |
+| Account Type | Description	Will always be check |
+| Recurring | Description	Will be initial or recurring |
 | Company Name	| Company Name if given during transaction |
 | Billing Address |	Consumer Mailing information |
 | Billing Address2	| |
@@ -455,7 +455,8 @@ The file format should be in the order listed above, but here is each field insi
 
 **Order:** An order is all transactions of Check Pre-Auth, Check Settlement, Check Return, Check Late Return for an order by a consumer.
 
-**Transaction:** This is one particular piece of a transaction as in the Check Pre-Auth, etc… 
+**Transaction:** This is one particular piece of a transaction as in the Check Pre-Auth, etc.
+
 **Transaction Block:** Is the block of transactions from validating the account / requesting the monies to receiving the monies or receiving a return. One order can have several transaction blocks for the initial transactions and the recurred transactions.
 
 **To Determine Initial Transactions:**  
@@ -465,9 +466,7 @@ Take all transactions for a date range then parse them out by Check Pre-Auth whe
 
 ** Tracking the Stages of an Order:** Each product sold will have a persistent Order Number throughout the life span of the order, even when it is in a recurring stage. The combination of the Order Number, Reference KeyID and History KeyID will let you track the step-by-step transactions that led to the current status of an order.  
 
-Please refer to the Transaction Life Cycle below for clarification on the below paragraph.
-
-** Linking up Transactions for a Particular Order:**
+** Linking up Transactions for a Particular Order**
 
 If you get a Check Return but you don’t know where it occurred in the order or from what transaction block, you can use referencekeyid found with the Check Return entry to start the process of finding which block it came from for this particular order. Take this reference keyid and look for a transaction that contains that referencekeyid as the historykeyid. This should return the Check Pre-Auth for which we received the Check Return. You can use this process for any Check Return, Check Late Return, Check Refund, Check Settlement, ACH NOC, etc… until you find a transaction entry that has a blank referencekeyid. This puts you at the beginning of this particular transaction block.
 
