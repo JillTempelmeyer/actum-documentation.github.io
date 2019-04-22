@@ -55,3 +55,36 @@ Information about setting up recurring payments (and can expand on how to manage
 | `billing_cycle` | A numerical value that corresponds with the frequency with which customer payments will be made. Input values include the following: One-Time Billing = -1, Weekly = 1, Monthly = 2, Bi-Monthly = 3, Quarterly = 4, Semi-Annually = 5, Annually = 6, Bi-Weekly = 7, Business-Daily = 8 | NUMBER | Y |
 | `days_til_recur` | The number of days remaining until `recur_amount` is billed | NUMBER | N |
 | `max_num_billing` | Maximum number of times consumer will be billed.  Default to “-1” (perpetual billing) if no value is defined. | NUMBER | N |
+
+### Miscellaneous Information
+
+... can we call this an object? Can we integrate this info. into the other sections?
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `ip_forward` | The IP address of the client connecting to your server. MAX LEN = 32 | VARCHAR2 | Y |
+| `futureinitial` | This field is required for submitting a transaction to originate on a future date. | DATE MM/DD/YYYY | N |
+| `merordernumber` | The merchant defined order number.  This field will be saved to the database MAX LEN = 512 | VARCHAR2 | N |
+| `action_code` | P = Process (default) | -- | N |
+| `creditflag` | Set `creditflag=1` to issue a credit.  **Note:** This is not for refunds, but rather to issue a credit for a transaction that was not initially debited. | NUMBER | N |
+| `trans_modifier` | S = Same-day transaction, N = Pre-note transaction, Y = NSF retry | N |
+| `retry_fee_amt` | The return fee you'll want to bill on an NSF Retry.  Must be separate than the `initial_amount`. | XX.XX ex. 10.00 | N |
+
+# Payment Retries and Refunds
+
+### Payment Retries
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+| `trans_modifier` | S = Same-day transaction, N = Pre-note transaction, Y = NSF retry | N |
+| `retry_fee_amt` | The return fee you'll want to bill on an NSF Retry.  Must be separate than the `initial_amount`. | XX.XX ex. 10.00 | N |
+
+### Payment Refunds
+
+Refunds can only be submitted against the transaction status of `Check Settlement`.
+
+| Parameter | Description | Type | Req |
+|---|---|---|---|
+
+
+
