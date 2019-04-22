@@ -15,7 +15,7 @@ The `Accounts` object represents the bank account information associated with th
 |---|---|---|---|
 | `companyname` | The name of business being debited or credited (used when a business account is being debited/credited). [max Length = 64] | ALPHANUMERIC | Y |
 | `chk_acct` | The customer's checking account number. [max Length = 32] | ALPHANUMERIC | Y |
-| `chk_aba` | The customer's ABA, or routing number. This field supports US. routing numbers. [max Length = 9]| ALPHANUMERIC | Y |
+| `chk_aba` | The customer's ABA, or routing number. This field supports US. routing numbers. [max length = 9]| ALPHANUMERIC | Y |
 | `acct_type` | Use one of the following values for this parameter: `C` for checking, or `S` for savings. This field is required for savings accounts only. | -- | N |
 | `chk_fract` | Fractional number (Example: `123-45/1234`). [max length = 16] | ALPHANUMERIC | N |
 | `chk_number` | The customer's check number. | NUMBER | N |
