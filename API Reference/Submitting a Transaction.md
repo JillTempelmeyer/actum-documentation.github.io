@@ -14,7 +14,7 @@ The `Accounts` object represents the bank account information associated with th
 | Parameter | Description | Type | Req |
 |---|---|---|---|
 | `companyname` | The name of business being debited or credited (used when a business account is being debited/credited). [max Length = 64] | ALPHANUMERIC | Y |
-| `chk_acct` | The customer's checking account number. [max Length = 32] | ALPHANUMERIC | Y |
+| `chk_acct` | The customer's checking account number. [max length = 32] | ALPHANUMERIC | Y |
 | `chk_aba` | The customer's ABA, or routing number. This field supports US. routing numbers. [max length = 9]| ALPHANUMERIC | Y |
 | `acct_type` | Use one of the following values for this parameter: `C` for checking, or `S` for savings. This field is required for savings accounts only. | -- | N |
 | `chk_fract` | Fractional number (Example: `123-45/1234`). [max length = 16] | ALPHANUMERIC | N |
@@ -62,9 +62,9 @@ Information about setting up recurring payments (and can expand on how to manage
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-| `ip_forward` | The IP address of the client connecting to your server. MAX LEN = 32 | VARCHAR2 | Y |
+| `ip_forward` | The IP address of the client connecting to your server. Max length = 32 | VARCHAR2 | Y |
 | `futureinitial` | This field is required for submitting a transaction to originate on a future date. | DATE MM/DD/YYYY | N |
-| `merordernumber` | The merchant defined order number.  This field will be saved to the database MAX LEN = 512 | VARCHAR2 | N |
+| `merordernumber` | The merchant defined order number.  This field will be saved to the database Max length = 512 | VARCHAR2 | N |
 | `action_code` | P = Process (default) | -- | N |
 | `creditflag` | Set `creditflag=1` to issue a credit.  **Note:** This is not for refunds, but rather to issue a credit for a transaction that was not initially debited. | NUMBER | N |
 | `trans_modifier` | S = Same-day transaction, N = Pre-note transaction, Y = NSF retry | N |
@@ -85,6 +85,11 @@ Refunds can only be submitted against the transaction status of `Check Settlemen
 
 | Parameter | Description | Type | Req |
 |---|---|---|---|
-
+| `username` | The Merchant's Actum portal username. MAX length = 16 | ALPHANUMERIC | R |
+| `password` | The Merchant's Actum portal password. Max length = 16 | ALPHANUMERIC | R |
+| `syspass` | The merchant's system password assigned by Actum. Max length = 16 | ALPHANUMERIC | R |
+| `action_code` | You will want to enter `action_code=K` to tell the script we are revoking the transaction. MAX LEN = 16 | ALPHANUMERIC | R |
+| `order_id` |The order ID of the transaction you want to revoke. Max length = 32 | ALPHANUMERIC | R |
+ 
 
 
