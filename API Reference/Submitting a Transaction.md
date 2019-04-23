@@ -464,9 +464,9 @@ Take all transactions for a date range then parse them out by Check Pre-Auth whe
 
 **Refunds:** Refunds can only be issued after a Check Settlement.
 
-** Tracking the Stages of an Order:** Each product sold will have a persistent Order Number throughout the life span of the order, even when it is in a recurring stage. The combination of the Order Number, Reference KeyID and History KeyID will let you track the step-by-step transactions that led to the current status of an order.  
+**Tracking the Stages of an Order:** Each product sold will have a persistent Order Number throughout the life span of the order, even when it is in a recurring stage. The combination of the Order Number, Reference KeyID and History KeyID will let you track the step-by-step transactions that led to the current status of an order.  
 
-** Linking up Transactions for a Particular Order**
+**Linking up Transactions for a Particular Order**
 
 If you get a Check Return but you don’t know where it occurred in the order or from what transaction block, you can use referencekeyid found with the Check Return entry to start the process of finding which block it came from for this particular order. Take this reference keyid and look for a transaction that contains that referencekeyid as the historykeyid. This should return the Check Pre-Auth for which we received the Check Return. You can use this process for any Check Return, Check Late Return, Check Refund, Check Settlement, ACH NOC, etc… until you find a transaction entry that has a blank referencekeyid. This puts you at the beginning of this particular transaction block.
 
